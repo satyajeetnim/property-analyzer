@@ -1,0 +1,34 @@
+{
+  "name": "property-analyzer",
+  "version": "1.0.0",
+  "description": "Web application to analyze and compare rental property investments",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satyajeetnim/property-analyzer.git"
+  },
+  "keywords": [
+    "rental",
+    "property",
+    "investment"
+  ],
+  "author": "Satyajeet Nimgaonkar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/satyajeetnim/property-analyzer/issues"
+  },
+  "homepage": "https://github.com/satyajeetnim/property-analyzer#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongodb": "^3.0.2",
+    "mongoose": "^5.0.6",
+    "morgan": "^1.9.0"
+  }
+}
