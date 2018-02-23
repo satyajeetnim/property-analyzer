@@ -3,46 +3,16 @@ var app = express();
 var port = process.env.PORT || 8080;
 var morgan = require('morgan');
 var mongoose = require('mongoose');
-var User = require('./app/models/user');
 var bodyParser = require('body-parser');
+var router = express.Router();
+var appRoutes = require('./app/routes/api')(router);
+var path = require('path');
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
-
-app.get('/', function(request, response) {
-	response.send('Welcome to Property Analyzer');
-});
-
-app.get('/home', function(request, response) {
-	response.send('Hello from Home');
-});
-
-app.post('/registration', function(request, response) {
-	var user = new User();
-	user.username = request.body.username;
-	user.password = request.body.password;
-	user.email = request.body.email;
-	if (request.body.username == null || request.body.username == '') {
-		response.send('Username is empty');
-	} 
-	else if (request.body.password == null || request.body.password == '') {
-		response.send('Password is empty');
-	}
-	else if (request.body.email == null || request.body.email == '') {
-		response.send('Email is empty');
-	}
-	else {
-		user.save(function(err) {
-			if (err) {
-				response.send('Username or email already exists');
-			} else {
-				response.send('User created !!!');
-			}
-		});
-	}
-	
-});
+app.use(express.static(__dirname + '/public'));
+app.use('/api', appRoutes);
 
 mongoose.connect('mongodb://localhost:27017/property-analzer', function(err) {
 	if (err) {
@@ -51,6 +21,10 @@ mongoose.connect('mongodb://localhost:27017/property-analzer', function(err) {
 	else {
 		console.log('Successfully connected to mongodb');
 	}
+});
+
+app.get('*', function(request, response) {
+	response.sendfile(path.join(__dirname + '/public/app/views/index.html'));
 });
 
 app.listen(port, function() {
